@@ -1,0 +1,67 @@
+@import 'weui/weui.less';
+@red: #FF6157;
+@gray: #f3f5f8;
+@fontSize: 32rpx;
+@itemColor: #333;
+@emptyItemColor: #989EA9;
+
+/* stylelint-disable selector-type-no-unknown */
+page {
+  width: 100%;
+
+  /** 不用height样式，因为它会固定高度为一屏 */
+  min-height: 100%;
+  line-height: 1.4;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  font-family: PingFangSC-Regular, sans-serif;
+  color: #000;
+  background-color: #f8f8f8;
+
+  /** 避免子元素 margin 穿透 */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.page {
+  width: 100%;
+
+  /** 页面包裹容器最小高度为一屏，由于父元素 page 使用 min-height:100%。100% 无效则所以 100vh */
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  /** 避免子元素 margin 穿透 */
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // 解决iphone底部被小黑条遮挡问题
+  padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
+}
+
+// 底部元素适配，避免被iphone小黑条遮挡
+.bottom-adapter {
+  display: block;
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
+}
+
+image {
+  /** 去除图片底部缝隙 */
+  vertical-align: middle;
+}
+
+// 清除浮动
+.clearfix::before,
+.clearfix::after {
+  display: table;
+  content: " ";
+}
+
+.clearfix::after {
+  clear: both;
+}

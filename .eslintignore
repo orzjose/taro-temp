@@ -1,0 +1,8 @@
+config
+dist
+mock
+node_modules
+scripts
+src/assets/wxapp-lui
+src/assets/js
+**/*.test.*

@@ -1,0 +1,77 @@
+image: cr.cheanjiait.com/build/node:10.16.3
+
+stages:
+  - prepare
+  - build
+  - deploy
+
+  # 安装 npm 依赖，所有分支都需要执行，详细请查阅：https://docs.gitlab.com/ee/ci/yaml/README.html#configuration-parameters
+prepare:dependency:
+  stage: prepare
+  script:
+    - npm cache clean --force
+    - npm config set registry https://registry.npmjs.org/ -g
+    - npm install --quiet --registry=https://registry.npmjs.org/
+  cache:
+    key: node_module
+    paths:
+    - node_modules
+
+build:
+  stage: build # 对应stages上的job名称
+  before_script:
+    - export BUILD_TASK=$([ "$CI_COMMIT_REF_NAME" == "master" ] && echo "build" || echo "build:test")
+  script:
+    - npm run $BUILD_TASK
+  cache:
+    key: node_module
+    policy: pull
+    paths:
+    - node_modules
+  artifacts:
+    paths:
+    - dist/
+  only:
+    - branches
+  except:
+    - /^wip-.*$/
+
+upload:cdn:
+  stage: build
+  before_script:
+    - export CDN_TASK=$([ "$CI_COMMIT_REF_NAME" == "master" ] && echo "cdn" || echo "cdn:dev")
+  script:
+    - echo "uploading images to cdn..."
+    - npm run $CDN_TASK
+    - echo "uploaded images to cdn"
+  cache:
+    key: node_module
+    policy: pull
+    paths:
+    - node_modules
+  only:
+    - branches
+  except:
+    - /^wip-.*$/
+  when: manual
+
+deploy:
+  stage: deploy
+  before_script:
+    - export UPLOAD_TASK=$([ "$CI_COMMIT_REF_NAME" == "master" ] && echo "upload" || echo "upload:test")
+    - export CI_UPLOAD_TOKEN=$([ "$CI_COMMIT_REF_NAME" == "master" ] && echo $CI_UPLOAD_TOKEN || echo $CI_UPLOAD_TOKEN_DEV)
+    - echo "-----BEGIN RSA PRIVATE KEY-----" >> private.key
+    - $([ "$CI_COMMIT_REF_NAME"=="master" ] && (echo $CI_UPLOAD_TOKEN >> private.key) || (echo $CI_UPLOAD_TOKEN_DEV >> private.key))
+    - echo "-----END RSA PRIVATE KEY-----" >> private.key
+    - export VERSION_AUTHOR=$(git log -1 --no-merges --pretty=format:"%an")
+    - export VERSION_DESC=$(git log -1 --pretty=format:"%s")
+    - export PROJECT_VERSION=$(node -p "require('./package.json').version") # 获取package的版本号
+  script:
+    - npm run $UPLOAD_TASK
+    - npm run clean:dist
+  cache:
+    key: node_module
+    policy: pull
+    paths:
+      - node_modules
+  when: manual

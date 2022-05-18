@@ -1,0 +1,28 @@
+@import "../../base/fn.less";
+
+
+.weui-panel {
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    &:first-child {
+        margin-top: 0;
+    }
+
+    position: relative;
+    overflow: hidden;
+}
+
+.weui-panel__hd {
+    padding: 14px 15px 10px;
+    color: @weuiTextColorGray;
+    font-size: 13px;
+    position: relative;
+    &:after {
+        .setBottomLine();
+        left: 15px;
+    }
+}
+
+
+
+

@@ -1,0 +1,20 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "unit-no-unknown": [true, {
+      "ignoreUnits": ["rpx", "vw", "vh", "%"]
+    }],
+    "rule-empty-line-before": ["always", {
+      "ignore": ["inside-block", "after-comment"]
+    }],
+    "declaration-block-no-duplicate-custom-properties": null,
+    "named-grid-areas-no-invalid": null,
+    "no-invalid-position-at-import-rule": null,
+    "no-empty-source ": null,
+    "no-irregular-whitespace": null,
+    "declaration-block-trailing-semicolon": null
+  }
+}

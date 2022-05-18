@@ -1,0 +1,23 @@
+dist/
+deploy_versions/
+.temp/
+.rn_temp/
+node_modules/
+.DS_Store
+
+# Editor directories and files
+.project
+.idea/
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+# wxapp-lui（lui在构建时动态拷贝到src/assets下）
+src/assets/wxapp-lui
+
+# icon font file
+src/static/iconfont
+src/styles/lxicons.scss

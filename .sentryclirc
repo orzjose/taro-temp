@@ -1,0 +1,6 @@
+[defaults]
+url=<%= sentry.url %>
+org=lixin
+project=<%= projectName %>
+[auth]
+token=<%= sentry.token %>
