@@ -5,8 +5,8 @@ const fs = require('fs-extra')
 const { version } = fs.readJSONSync('./package.json')
 
 const config = {
-  projectName: '<%= projectName %>',
-  date: '<%= date %>',
+  projectName: '{{projectName}}',
+  date: '{{date}}',
   designWidth: 750,
   deviceRatio: {
     640: 2.34 / 2,

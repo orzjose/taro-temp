@@ -1,6 +1,6 @@
-# <%= projectName %>
+# {{projectName}}
 
-## <%= description %>
+## {{description}}
 
 安装依赖： `npm install`
 

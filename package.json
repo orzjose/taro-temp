@@ -1,8 +1,8 @@
 {
-  "name": "<%= projectName %>",
+  "name": "{{projectName}}",
   "version": "0.0.1",
   "private": true,
-  "description": "<%= description %>",
+  "description": "{{description}}",
   "templateInfo": {
     "name": "redux",
     "typescript": true,

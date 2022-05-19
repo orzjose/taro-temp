@@ -1,6 +1,6 @@
 [defaults]
-url=<%= sentry.url %>
+url={{sentry.url}}
 org=lixin
-project=<%= projectName %>
+project={{projectName}}
 [auth]
-token=<%= sentry.token %>
+token={{sentry.token}}
